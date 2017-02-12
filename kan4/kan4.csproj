@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Kan4DB.cs" />
     <Compile Include="kan4.cs">
       <SubType>Form</SubType>
     </Compile>
