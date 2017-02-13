@@ -12,9 +12,12 @@ namespace kan4
 {
     public partial class kan4 : Form
     {
+        private Kan4DB db;
+
         public kan4()
         {
             InitializeComponent();
+            db = new Kan4DB();
         }
     }
 }

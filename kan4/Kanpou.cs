@@ -11,6 +11,7 @@ namespace kan4
         public readonly string title;
         public readonly string date;
         public readonly string id;
+        private List<HeadLine> headlines;
 
         private static string pat = "<P>(.+)　………　<A HREF=\"\\./20\\d{6}[a-z]\\d{9}f\\.html\" TARGET=\"_top\">(.+)</A></P>";
 //        private static string secPat = "<P><FONT SIZE=\"+1\"><B>(〔.+〕)</B></FONT></P>";
@@ -19,6 +20,7 @@ namespace kan4
         {
             public readonly string text;
             public readonly int page;
+
             public HeadLine(string t,int p)
             {
                 text = t;
@@ -31,6 +33,7 @@ namespace kan4
             title = t;
             date = d;
             id = i;
+            headlines = new List<HeadLine>();
         }
 
 
@@ -76,7 +79,10 @@ namespace kan4
         /// <returns></returns>
         public List<HeadLine> getHeadLines()
         {
-            var list = new List<HeadLine>();
+            if(headlines.Count > 0)
+            {
+                return headlines;
+            }
             var wc = new System.Net.WebClient();
             try
             {
@@ -94,7 +100,7 @@ namespace kan4
                         {
                             sec = string.Empty;
                         }
-                        list.Add(new HeadLine(sec + h, p));
+                        headlines.Add(new HeadLine(sec + h, p));
                     }
                     else
                     {
@@ -109,9 +115,9 @@ namespace kan4
             }
             catch (System.Net.WebException)
             {
-                list.Clear();
+                headlines.Clear();
             }
-            return list;
+            return headlines;
         }
     }
 }
