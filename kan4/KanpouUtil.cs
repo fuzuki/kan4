@@ -13,9 +13,22 @@ namespace kan4
         private static string ContentsUrl = "html/contents.html";
         private static string RegPat = "<a href=\"\\.\\./(20\\d{6})/(20\\d{6}[a-z]\\d{5})/20\\d{6}[a-z]\\d{5}0000f\\.html\".+>(.+)</a>";
 
-        /**
-         * 直近30日分の官報一覧を取得
-         */
+
+        /// <summary>
+        /// 全角交じりの数値文字列を、数字に変換
+        /// </summary>
+        /// <param name="s">数値文字列</param>
+        /// <returns></returns>
+        public static int toInt(string s)
+        {
+            var tmp = System.Text.RegularExpressions.Regex.Replace(s, "[０-９]", p => ((char)(p.Value[0] - '０' + '0')).ToString());
+            return int.Parse(tmp);
+        }
+
+        /// <summary>
+        /// 直近30日分の官報一覧を取得
+        /// </summary>
+        /// <returns></returns>
         public static List<Kanpou> getKanpouList()
         {
             var list = new List<Kanpou>();
@@ -35,14 +48,16 @@ namespace kan4
             catch (System.Net.WebException)
             {
                 list.Clear();
-//                throw;
             }
             return list;
         }
 
-        /**
-         * ファイルをダウンロードして、指定のディレクトリに保存する。
-         */
+        /// <summary>
+        /// ファイルをダウンロードして、指定のディレクトリに保存する。
+        /// </summary>
+        /// <param name="urls">ダウンロードするURLのリスト</param>
+        /// <param name="dir">保存先</param>
+        /// <returns>成功/失敗</returns>
         public static bool downloadFiles(List<string> urls,string dir)
         {
             bool ret = true;
@@ -69,10 +84,11 @@ namespace kan4
             return ret;
         }
 
-        /**
-         * 指定のファイルを削除する
-         * ダウンロードした官報ファイルの削除
-         */
+
+        /// <summary>
+        /// 指定のファイルを削除する
+        /// </summary>
+        /// <param name="list"></param>
         public static void deleteFiles(List<string> list)
         {
             foreach (var f in list)
