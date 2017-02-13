@@ -99,5 +99,35 @@ namespace kan4
                 }
             }
         }
+
+        public static void downloadKanpou(Kan4DB db)
+        {
+            var klist = KanpouUtil.getKanpouList();
+            string mydir = System.AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\');
+            string pdfdir = mydir + "\\pdf";
+            string tmpdir = mydir + "\\tmp";
+            if (!System.IO.Directory.Exists(pdfdir))
+            {
+                System.IO.Directory.CreateDirectory(pdfdir);
+            }
+
+//            db.open();
+            foreach (var k in klist)
+            {
+//                if (!db.isRegisted(k))
+                {
+                    var plist = k.getPdfUrls();
+                    k.getHeadLines();
+                    if (downloadFiles(plist,tmpdir))
+                    {
+                        plist.ForEach(p => string.Format("{0}\\{1}", tmpdir, System.IO.Path.GetFileName(p)));
+                        PdfUtil.joinPdf(plist, string.Format("{0}\\{1}.pdf",pdfdir,k.id));
+//                        db.regist(k);
+                    }
+                }
+                break;//for test
+            }
+//            db.close();
+        }
     }
 }

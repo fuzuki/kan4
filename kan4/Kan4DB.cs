@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace kan4
 {
-    class Kan4DB
+    public class Kan4DB
     {
         private System.Data.SQLite.SQLiteConnection db;
 
@@ -53,7 +53,7 @@ namespace kan4
             var com = db.CreateCommand();
             com.CommandText = "select id from pdf where id=@1";
             com.Parameters.AddWithValue("@1",k.id);
-            com.ExecuteReader();
+//            com.ExecuteReader();
             var r = com.ExecuteReader();
             
             return (r.FieldCount > 0);
