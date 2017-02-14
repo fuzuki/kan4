@@ -28,46 +28,133 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.downloadButton = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.downloadStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripDownloadProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripDownloadStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.backgroundDownloadWorker = new System.ComponentModel.BackgroundWorker();
+            this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.downloadStatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // downloadButton
             // 
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Download";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.downloadButton.Location = new System.Drawing.Point(12, 12);
+            this.downloadButton.Name = "downloadButton";
+            this.downloadButton.Size = new System.Drawing.Size(75, 23);
+            this.downloadButton.TabIndex = 0;
+            this.downloadButton.Text = "Download";
+            this.downloadButton.UseVisualStyleBackColor = true;
+            this.downloadButton.Click += new System.EventHandler(this.downloadButton_Click);
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
+            this.listBox1.HorizontalScrollbar = true;
             this.listBox1.ItemHeight = 12;
             this.listBox1.Location = new System.Drawing.Point(12, 41);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(765, 376);
+            this.listBox1.Size = new System.Drawing.Size(765, 148);
             this.listBox1.TabIndex = 1;
+            // 
+            // downloadStatusStrip
+            // 
+            this.downloadStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripDownloadProgressBar,
+            this.toolStripDownloadStatusLabel});
+            this.downloadStatusStrip.Location = new System.Drawing.Point(0, 195);
+            this.downloadStatusStrip.Name = "downloadStatusStrip";
+            this.downloadStatusStrip.Size = new System.Drawing.Size(785, 22);
+            this.downloadStatusStrip.TabIndex = 2;
+            this.downloadStatusStrip.Text = "statusStrip1";
+            // 
+            // toolStripDownloadProgressBar
+            // 
+            this.toolStripDownloadProgressBar.Name = "toolStripDownloadProgressBar";
+            this.toolStripDownloadProgressBar.Size = new System.Drawing.Size(100, 16);
+            // 
+            // toolStripDownloadStatusLabel
+            // 
+            this.toolStripDownloadStatusLabel.Name = "toolStripDownloadStatusLabel";
+            this.toolStripDownloadStatusLabel.Size = new System.Drawing.Size(17, 17);
+            this.toolStripDownloadStatusLabel.Text = "--";
+            // 
+            // backgroundDownloadWorker
+            // 
+            this.backgroundDownloadWorker.WorkerReportsProgress = true;
+            this.backgroundDownloadWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundDownloadWorker_DoWork);
+            this.backgroundDownloadWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundDownloadWorker_ProgressChanged);
+            this.backgroundDownloadWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundDownloadWorker_RunWorkerCompleted);
+            // 
+            // dateTimePickerFrom
+            // 
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(402, 14);
+            this.dateTimePickerFrom.Name = "dateTimePickerFrom";
+            this.dateTimePickerFrom.Size = new System.Drawing.Size(126, 19);
+            this.dateTimePickerFrom.TabIndex = 3;
+            // 
+            // dateTimePickerTo
+            // 
+            this.dateTimePickerTo.Checked = false;
+            this.dateTimePickerTo.Location = new System.Drawing.Point(534, 14);
+            this.dateTimePickerTo.Name = "dateTimePickerTo";
+            this.dateTimePickerTo.Size = new System.Drawing.Size(132, 19);
+            this.dateTimePickerTo.TabIndex = 4;
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(116, 14);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(280, 19);
+            this.searchTextBox.TabIndex = 5;
+            // 
+            // searchButton
+            // 
+            this.searchButton.Location = new System.Drawing.Point(680, 12);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(87, 22);
+            this.searchButton.TabIndex = 6;
+            this.searchButton.Text = "search";
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // kan4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(783, 422);
+            this.ClientSize = new System.Drawing.Size(785, 217);
+            this.Controls.Add(this.searchButton);
+            this.Controls.Add(this.searchTextBox);
+            this.Controls.Add(this.dateTimePickerTo);
+            this.Controls.Add(this.dateTimePickerFrom);
+            this.Controls.Add(this.downloadStatusStrip);
             this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.downloadButton);
             this.Name = "kan4";
             this.Text = "簡単官報管理官";
+            this.downloadStatusStrip.ResumeLayout(false);
+            this.downloadStatusStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button downloadButton;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.StatusStrip downloadStatusStrip;
+        private System.Windows.Forms.ToolStripProgressBar toolStripDownloadProgressBar;
+        private System.ComponentModel.BackgroundWorker backgroundDownloadWorker;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripDownloadStatusLabel;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFrom;
+        private System.Windows.Forms.DateTimePicker dateTimePickerTo;
+        private System.Windows.Forms.TextBox searchTextBox;
+        private System.Windows.Forms.Button searchButton;
     }
 }
 

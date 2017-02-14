@@ -72,7 +72,10 @@ namespace kan4
                 var name = System.IO.Path.GetFileName(u);
                 try
                 {
-                    wc.DownloadFile(u, String.Format("{0}\\{1}", dir, name));
+                    var ofile = String.Format("{0}\\{1}", dir, name);
+                    if (!System.IO.File.Exists(ofile)) {
+                        wc.DownloadFile(u, ofile);
+                    }
                 }
                 catch (System.Net.WebException)
                 {
@@ -111,23 +114,31 @@ namespace kan4
                 System.IO.Directory.CreateDirectory(pdfdir);
             }
 
-//            db.open();
+            db.open();
             foreach (var k in klist)
             {
-//                if (!db.isRegisted(k))
+
+                var joined = string.Format("{0}\\{1}.pdf", pdfdir, k.id);
+//                if(!System.IO.File.Exists(joined))
+                if (!db.isRegisted(k))
                 {
                     var plist = k.getPdfUrls();
                     k.getHeadLines();
                     if (downloadFiles(plist,tmpdir))
                     {
-                        plist.ForEach(p => string.Format("{0}\\{1}", tmpdir, System.IO.Path.GetFileName(p)));
-                        PdfUtil.joinPdf(plist, string.Format("{0}\\{1}.pdf",pdfdir,k.id));
-//                        db.regist(k);
+                        var filelist = new List<string>();
+                        foreach (var u in plist)
+                        {
+                            filelist.Add(string.Format("{0}\\{1}", tmpdir, System.IO.Path.GetFileName(u)));
+                        }
+                        PdfUtil.joinPdf(filelist, joined);
+                        db.regist(k);
+                        deleteFiles(filelist);
                     }
                 }
                 break;//for test
             }
-//            db.close();
+            db.close();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace kan4
     public class Kan4DB
     {
         private System.Data.SQLite.SQLiteConnection db;
+        private bool closed;
 
         public Kan4DB()
         {
@@ -19,17 +20,25 @@ namespace kan4
             {
                 createDB();
             }
-
+            closed = true;
         }
 
         public void open()
         {
-            db.Open();
+            if (closed)
+            {
+                db.Open();
+                closed = false;
+            }
         }
 
         public void close()
         {
-            db.Close();
+            if (!closed)
+            {
+                db.Close();
+                closed = true;
+            }
         }
 
         private void createDB()
@@ -51,11 +60,11 @@ namespace kan4
         public bool isRegisted(Kanpou k)
         {
             var com = db.CreateCommand();
-            com.CommandText = "select id from pdf where id=@1";
+            com.CommandText = "select id from pdf where id = @1";
             com.Parameters.AddWithValue("@1",k.id);
-//            com.ExecuteReader();
-            var r = com.ExecuteReader();
             
+            var r = com.ExecuteReader();
+//            System.Windows.Forms.MessageBox.Show(string.Format("count:{0}", r.FieldCount)); ;
             return (r.FieldCount > 0);
         }
 
@@ -91,16 +100,15 @@ namespace kan4
         /// <param name="from">検索対象期間指定:yyyyMM</param>
         /// <param name="to">検索対象期間指定:yyyyMM</param>
         /// <returns></returns>
-        public List<Dictionary<string, string>> searchHeadline(string txt,string from="200101",string to="299912")
+        public List<Dictionary<string, string>> searchHeadline(string txt,string from="20010101",string to="29991231")
         {
             var list = new List<Dictionary<string, string>>();
-            string sql = "select contents.headline,contents.page,pdf.id,pdf.title from contents inner join pdf contents.pdf_id = pdf.id where contents.headline like @1 and pdf.id > @2 and pdf.id < @3;";
-            // select * from contents inner join pdf contents.pdf_id = pdf.id;
+            string sql = "select contents.headline,contents.page,pdf.id,pdf.title from contents inner join pdf on contents.pdf_id = pdf.id where contents.headline like @1 and pdf.id > @2 and pdf.id < @3";
             var com = db.CreateCommand();
             com.CommandText = sql;
             com.Parameters.AddWithValue("@1", string.Format("%{0}%",txt));
             com.Parameters.AddWithValue("@2", string.Format("{0}00", from));
-            com.Parameters.AddWithValue("@3", string.Format("{0}99", to));
+            com.Parameters.AddWithValue("@3", string.Format("{0}zz", to));
             var reader = com.ExecuteReader();
             while (reader.Read())
             {

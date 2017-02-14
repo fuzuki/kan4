@@ -20,20 +20,66 @@ namespace kan4
             db = new Kan4DB();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void downloadButton_Click(object sender, EventArgs e)
         {
-            KanpouUtil.downloadKanpou(db);
+            downloadButton.Enabled = false;
+//            toolStripDownloadStatusLabel.Text = "download";
+            backgroundDownloadWorker.RunWorkerAsync();
+
+            
+
             /*
             listBox1.Items.Clear();
             db.open();
             var l = db.searchHeadline("");
             foreach (var item in l)
             {
-                listBox1.Items.Add(string.Format("【{0,-10}】　{1}",item["pdf_title"], item["headline"]));
+                listBox1.Items.Add(string.Format("【{0,-16}】　{1} ... {2}",item["pdf_title"], item["headline"],item["page"]));
             }
             db.close();
             */
+        }
 
+        /// <summary>
+        /// バックグラウンドでpdfダウンロード
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void backgroundDownloadWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            //TODO 要修正
+            KanpouUtil.downloadKanpou(db);
+
+            for (int i = 0; i <= 10; i++)
+            {
+                System.Threading.Thread.Sleep(1000);
+                backgroundDownloadWorker.ReportProgress(i*10);
+            }
+        }
+
+        private void backgroundDownloadWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            toolStripDownloadProgressBar.Value = e.ProgressPercentage;
+            toolStripDownloadStatusLabel.Text = e.ProgressPercentage.ToString();
+        }
+
+        private void backgroundDownloadWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            toolStripDownloadStatusLabel.Text = "ok";
+            downloadButton.Enabled = true;
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            toolStripDownloadStatusLabel.Text = "search:" + searchTextBox.Text;
+            listBox1.Items.Clear();
+            db.open();
+            var l = db.searchHeadline(searchTextBox.Text.Trim());
+            db.close();
+            foreach (var item in l)
+            {
+                listBox1.Items.Add(string.Format("【{0,-16}】　{1} ... {2}", item["pdf_title"], item["headline"], item["page"]));
+            }
         }
     }
 }
