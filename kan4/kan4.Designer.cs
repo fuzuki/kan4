@@ -53,13 +53,17 @@
             // 
             // listBox1
             // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.HorizontalScrollbar = true;
             this.listBox1.ItemHeight = 12;
             this.listBox1.Location = new System.Drawing.Point(12, 41);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(765, 148);
+            this.listBox1.Size = new System.Drawing.Size(764, 148);
             this.listBox1.TabIndex = 1;
+            this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
             // downloadStatusStrip
             // 
@@ -68,7 +72,7 @@
             this.toolStripDownloadStatusLabel});
             this.downloadStatusStrip.Location = new System.Drawing.Point(0, 195);
             this.downloadStatusStrip.Name = "downloadStatusStrip";
-            this.downloadStatusStrip.Size = new System.Drawing.Size(785, 22);
+            this.downloadStatusStrip.Size = new System.Drawing.Size(784, 22);
             this.downloadStatusStrip.TabIndex = 2;
             this.downloadStatusStrip.Text = "statusStrip1";
             // 
@@ -92,25 +96,30 @@
             // 
             // dateTimePickerFrom
             // 
-            this.dateTimePickerFrom.Location = new System.Drawing.Point(402, 14);
+            this.dateTimePickerFrom.CustomFormat = "yyyy年M月d日から";
+            this.dateTimePickerFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(379, 14);
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
-            this.dateTimePickerFrom.Size = new System.Drawing.Size(126, 19);
+            this.dateTimePickerFrom.Size = new System.Drawing.Size(147, 19);
             this.dateTimePickerFrom.TabIndex = 3;
             // 
             // dateTimePickerTo
             // 
             this.dateTimePickerTo.Checked = false;
-            this.dateTimePickerTo.Location = new System.Drawing.Point(534, 14);
+            this.dateTimePickerTo.CustomFormat = "yyyy年M月d日まで";
+            this.dateTimePickerTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerTo.Location = new System.Drawing.Point(532, 14);
             this.dateTimePickerTo.Name = "dateTimePickerTo";
-            this.dateTimePickerTo.Size = new System.Drawing.Size(132, 19);
+            this.dateTimePickerTo.Size = new System.Drawing.Size(142, 19);
             this.dateTimePickerTo.TabIndex = 4;
             // 
             // searchTextBox
             // 
-            this.searchTextBox.Location = new System.Drawing.Point(116, 14);
+            this.searchTextBox.Location = new System.Drawing.Point(93, 14);
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(280, 19);
             this.searchTextBox.TabIndex = 5;
+            this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
             // 
             // searchButton
             // 
@@ -126,7 +135,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(785, 217);
+            this.ClientSize = new System.Drawing.Size(784, 217);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.searchTextBox);
             this.Controls.Add(this.dateTimePickerTo);
@@ -134,6 +143,7 @@
             this.Controls.Add(this.downloadStatusStrip);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.downloadButton);
+            this.MinimumSize = new System.Drawing.Size(800, 150);
             this.Name = "kan4";
             this.Text = "簡単官報管理官";
             this.downloadStatusStrip.ResumeLayout(false);

@@ -10,6 +10,7 @@ namespace kan4
     {
         private System.Data.SQLite.SQLiteConnection db;
         private bool closed;
+        private int limit = 10000;
 
         public Kan4DB()
         {
@@ -59,13 +60,21 @@ namespace kan4
         /// <returns></returns>
         public bool isRegisted(Kanpou k)
         {
+            return isRegisted(k.id);
+        }
+        /// <summary>
+        /// 対象がDB登録済みかどうか確認
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool isRegisted(string id)
+        {
             var com = db.CreateCommand();
             com.CommandText = "select id from pdf where id = @1";
-            com.Parameters.AddWithValue("@1",k.id);
-            
+            com.Parameters.AddWithValue("@1", id);
             var r = com.ExecuteReader();
-//            System.Windows.Forms.MessageBox.Show(string.Format("count:{0}", r.FieldCount)); ;
-            return (r.FieldCount > 0);
+            return r.Read();
+
         }
 
         /// <summary>
@@ -93,6 +102,33 @@ namespace kan4
             }
         }
 
+        public List<Dictionary<string, string>> searchKanpou()
+        {
+            var from = DateTime.Now.ToString("yyyyMM00");
+            var to = DateTime.Now.ToString("yyyyMM99");
+            return searchKanpou(from,to);
+        }
+
+        public List<Dictionary<string, string>> searchKanpou(string from,string to)
+        {
+            var list = new List<Dictionary<string, string>>();
+            string sql = string.Format("select id,title from pdf where id > @1 and id < @2 order by id limit {0}",limit);
+            var com = db.CreateCommand();
+            com.CommandText = sql;
+            com.Parameters.AddWithValue("@1", string.Format("{0}00", from));
+            com.Parameters.AddWithValue("@2", string.Format("{0}zz", to));
+            var reader = com.ExecuteReader();
+            while (reader.Read())
+            {
+                var r = new Dictionary<string, string>();
+                r.Add("pdf_id", reader.GetString(0));
+                r.Add("pdf_title", reader.GetString(1));
+                list.Add(r);
+            }
+
+            return list;
+        }
+
         /// <summary>
         /// 目次検索
         /// </summary>
@@ -103,7 +139,7 @@ namespace kan4
         public List<Dictionary<string, string>> searchHeadline(string txt,string from="20010101",string to="29991231")
         {
             var list = new List<Dictionary<string, string>>();
-            string sql = "select contents.headline,contents.page,pdf.id,pdf.title from contents inner join pdf on contents.pdf_id = pdf.id where contents.headline like @1 and pdf.id > @2 and pdf.id < @3";
+            string sql = string.Format("select contents.headline,contents.page,pdf.id,pdf.title from contents inner join pdf on contents.pdf_id = pdf.id where (contents.headline like @1 or pdf.title like @1) and pdf.id > @2 and pdf.id < @3 order by pdf.id limit {0}",limit);
             var com = db.CreateCommand();
             com.CommandText = sql;
             com.Parameters.AddWithValue("@1", string.Format("%{0}%",txt));

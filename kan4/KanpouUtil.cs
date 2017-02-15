@@ -67,19 +67,23 @@ namespace kan4
             }
 
             var wc = new System.Net.WebClient();
+            var pdflist = new List<string>();
             foreach (var u in urls)
             {
                 var name = System.IO.Path.GetFileName(u);
                 try
                 {
                     var ofile = String.Format("{0}\\{1}", dir, name);
+                    pdflist.Add(ofile);
                     if (!System.IO.File.Exists(ofile)) {
                         wc.DownloadFile(u, ofile);
                     }
+                    System.Threading.Thread.Sleep(100);//連続ダウンロードを控えるため
                 }
                 catch (System.Net.WebException)
                 {
                     ret = false;
+                    deleteFiles(pdflist);//正常にダウンロードできていない可能性
                     break;
                 }
             }
@@ -106,39 +110,97 @@ namespace kan4
         public static void downloadKanpou(Kan4DB db)
         {
             var klist = KanpouUtil.getKanpouList();
+            foreach (var k in klist)
+            {
+                downloadKanpou(db,k);
+                break;//for test
+            }
+        }
+
+        /// <summary>
+        /// 官報のダウンロード・連結・DB登録
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="k"></param>
+        public static void downloadKanpou(Kan4DB db, Kanpou k)
+        {
+            db.open();
+//            System.Windows.Forms.MessageBox.Show(string.Format("{0}", k.id));
+            if (!db.isRegisted(k))
+            {
+                var plist = k.getPdfUrls();
+                k.getHeadLines();
+                var tmpdir = getTempDir();
+                
+                if (downloadFiles(plist, tmpdir))
+                {
+                    var filelist = new List<string>();
+                    foreach (var u in plist)
+                    {
+                        filelist.Add(string.Format("{0}\\{1}", tmpdir, System.IO.Path.GetFileName(u)));
+                    }
+                    PdfUtil.joinPdf(filelist, getKanpouPath(k));
+                    db.regist(k);
+                    deleteFiles(filelist);
+                }
+            }
+            db.close();
+        }
+
+        public static void openKanpouPdf(string id)
+        {
+            var path = getKanpouPath(id);
+            if(path.Length > 0)
+            {
+                System.Diagnostics.Process.Start(path);
+            }
+        }
+
+        public static string getKanpouPath(Kanpou k)
+        {
+            return getKanpouPath(k.id);
+        }
+        public static string getKanpouPath(string id)
+        {
+            var m = System.Text.RegularExpressions.Regex.Match(id, "^(20\\d\\d)\\d{4}[a-z]\\d{5}$");
+            if (!m.Success)
+            {
+                return string.Empty;
+            }
+            string kdir = string.Format("{0}\\{1}", getPdfDir(), m.Groups[1].Value);
+            if (!System.IO.Directory.Exists(kdir))
+            {
+                System.IO.Directory.CreateDirectory(kdir);
+            }
+            return string.Format("{0}\\{1}.pdf", kdir, id);
+        }
+
+        private static string getPdfDir()
+        {
             string mydir = System.AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\');
             string pdfdir = mydir + "\\pdf";
-            string tmpdir = mydir + "\\tmp";
             if (!System.IO.Directory.Exists(pdfdir))
             {
                 System.IO.Directory.CreateDirectory(pdfdir);
             }
 
-            db.open();
-            foreach (var k in klist)
-            {
+            return pdfdir;
+        }
 
-                var joined = string.Format("{0}\\{1}.pdf", pdfdir, k.id);
-//                if(!System.IO.File.Exists(joined))
-                if (!db.isRegisted(k))
-                {
-                    var plist = k.getPdfUrls();
-                    k.getHeadLines();
-                    if (downloadFiles(plist,tmpdir))
-                    {
-                        var filelist = new List<string>();
-                        foreach (var u in plist)
-                        {
-                            filelist.Add(string.Format("{0}\\{1}", tmpdir, System.IO.Path.GetFileName(u)));
-                        }
-                        PdfUtil.joinPdf(filelist, joined);
-                        db.regist(k);
-                        deleteFiles(filelist);
-                    }
-                }
-                break;//for test
+        private static string getTempDir()
+        {
+            string mydir = System.AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\');
+            string tmpDir = mydir + "\\tmp";
+            if (!System.IO.Directory.Exists(tmpDir))
+            {
+                System.IO.Directory.CreateDirectory(tmpDir);
             }
-            db.close();
+
+            return tmpDir;
         }
     }
+
+
+
+
 }
