@@ -39,13 +39,13 @@ namespace kan4
             db = new Kan4DB();
             downloading = false;
             cancel = false;
+            dateTimePickerFrom.Value = DateTime.Parse(string.Format("{0}/{1}/1",DateTime.Today.Year,DateTime.Today.Month)) ;
         }
 
         private void downloadButton_Click(object sender, EventArgs e)
         {
             if (!downloading)
             {
-                downloadButton.Enabled = false;
                 downloadButton.Text = "Cancel";
                 downloading = true;
                 toolStripDownloadStatusLabel.Text = "downloading...";
@@ -66,6 +66,10 @@ namespace kan4
         private void backgroundDownloadWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var klist = KanpouUtil.getKanpouList();
+            if(klist.Count == 0)
+            {
+                System.Windows.Forms.MessageBox.Show("Network Error !");
+            }
             int i = 0;
             klist.Reverse();//古いものから保存
             foreach (var k in klist)
@@ -77,29 +81,18 @@ namespace kan4
                 {
                     break;
                 }
-                downloadButton.Enabled = true;
             }
         }
 
         private void backgroundDownloadWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             toolStripDownloadProgressBar.Value = e.ProgressPercentage;
-//            toolStripDownloadStatusLabel.Text = e.ProgressPercentage.ToString();
         }
 
         private void backgroundDownloadWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             toolStripDownloadProgressBar.Value = 0;
             toolStripDownloadStatusLabel.Text = "ok";
-
-            listBox1.Items.Clear();
-            db.open();
-            var l = db.searchKanpou();
-            foreach (var item in l)
-            {
-                listBox1.Items.Add(new ListItem(string.Format("【{0,-16}】　{1}", item["pdf_title"], item["pdf_id"]), item["pdf_id"]));
-            }
-            db.close();
 
             downloading = false;
             cancel = false;

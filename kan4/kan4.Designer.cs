@@ -145,7 +145,7 @@
             this.Controls.Add(this.downloadButton);
             this.MinimumSize = new System.Drawing.Size(800, 150);
             this.Name = "kan4";
-            this.Text = "簡単官報管理官";
+            this.Text = "簡単官報管理官。";
             this.downloadStatusStrip.ResumeLayout(false);
             this.downloadStatusStrip.PerformLayout();
             this.ResumeLayout(false);

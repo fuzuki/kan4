@@ -78,7 +78,7 @@ namespace kan4
                     if (!System.IO.File.Exists(ofile)) {
                         wc.DownloadFile(u, ofile);
                     }
-                    System.Threading.Thread.Sleep(100);//連続ダウンロードを控えるため
+                    System.Threading.Thread.Sleep(50);//連続ダウンロードを控えるため
                 }
                 catch (System.Net.WebException)
                 {
@@ -146,7 +146,10 @@ namespace kan4
             }
             db.close();
         }
-
+        /// <summary>
+        /// pdfファイルを開く
+        /// </summary>
+        /// <param name="id"></param>
         public static void openKanpouPdf(string id)
         {
             var path = getKanpouPath(id);
