@@ -61,7 +61,7 @@
             this.listBox1.ItemHeight = 12;
             this.listBox1.Location = new System.Drawing.Point(12, 41);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(764, 148);
+            this.listBox1.Size = new System.Drawing.Size(760, 148);
             this.listBox1.TabIndex = 1;
             this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
@@ -96,6 +96,7 @@
             // 
             // dateTimePickerFrom
             // 
+            this.dateTimePickerFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePickerFrom.CustomFormat = "yyyy年M月d日から";
             this.dateTimePickerFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePickerFrom.Location = new System.Drawing.Point(379, 14);
@@ -105,6 +106,7 @@
             // 
             // dateTimePickerTo
             // 
+            this.dateTimePickerTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePickerTo.Checked = false;
             this.dateTimePickerTo.CustomFormat = "yyyy年M月d日まで";
             this.dateTimePickerTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
@@ -115,6 +117,8 @@
             // 
             // searchTextBox
             // 
+            this.searchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.searchTextBox.Location = new System.Drawing.Point(93, 14);
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(280, 19);
@@ -123,7 +127,8 @@
             // 
             // searchButton
             // 
-            this.searchButton.Location = new System.Drawing.Point(680, 12);
+            this.searchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchButton.Location = new System.Drawing.Point(685, 11);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(87, 22);
             this.searchButton.TabIndex = 6;

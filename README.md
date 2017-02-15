@@ -8,14 +8,20 @@ web”ÅpdfŠ¯•ñ(<https://kanpou.npb.go.jp/>)‚ðƒ_ƒEƒ“ƒ[ƒh‚µ‚ÄAŽèŒ³‚ÅŠÇ—‚·‚éƒ\ƒtƒ
 * pdf˜AŒ‹
 * Œ©o‚µŒŸõ
 
+## Žg‚¢•û
+ƒCƒ“ƒ^[ƒlƒbƒg‚ÉÚ‘±‚µ‚½ó‘Ô‚ÅuDownloadvƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆAŠ¯•ñ‚Ìƒ_ƒEƒ“ƒ[ƒh‚ðŠJŽn‚µ‚Ü‚·B  
+uCancelv‚ÍAƒ_ƒEƒ“ƒ[ƒh’†‚ÌŠ¯•ñ‚Ìˆ—‚ªI‚í‚Á‚½‚çA‚»‚êˆÈã‚Ìƒ_ƒEƒ“ƒ[ƒh‚ð’†Ž~‚µ‚Ü‚·B  
+ƒeƒLƒXƒgƒ{ƒbƒNƒX‚ÉŒŸõ•¶Žš—ñ‚ð“ü—Í‚µ‚ÄAŒŸõŠúŠÔ‚ðŽw’è‚µ‚Äusearchvƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆAƒ_ƒEƒ“ƒ[ƒhÏ‚ÝŠ¯•ñ‚Ì–ÚŽŸ‚ðŒŸõ‚µ‚Ü‚·Bu–{Ž†vu“Á•Ê†ŠOv‚Æ‚¢‚Á‚½•¶Žš—ñ‚Å‚ÌŒŸõ‚à‰Â”\‚Å‚·B  
+ŒŸõŒ‹‰Ê‚ÌƒŠƒXƒg€–Ú‚ðƒ_ƒuƒ‹ƒNƒŠƒbƒN‚·‚é‚ÆA‘ÎÛ‚Ìpdf‚ðŠJ‚«‚Ü‚·B  
+
 ## “®ìŠÂ‹«  
-Windows8ˆÈ~(.NET Framework 4.5 ˆÈ~)
+* Windows8ˆÈ~(.NET Framework 4.5 ˆÈ~)
 
 ## ŠJ”­ŠÂ‹«  
-Visual Studio 2015
+* Visual Studio 2015
 
 ## ƒ‰ƒCƒZƒ“ƒX  
-GPLv3(<https://ja.osdn.net/projects/opensource/wiki/licenses%252FGNU_General_Public_License_version_3.0>)
+* GPLv3(<https://ja.osdn.net/projects/opensource/wiki/licenses%252FGNU_General_Public_License_version_3.0>)
 
 ## ì¬
 ‚Ó‚Ã‚«(<https://github.com/fuzuki>)
