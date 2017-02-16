@@ -14,7 +14,6 @@ namespace kan4
         private List<HeadLine> headlines;
 
         private static string pat = "<P>(.+)　………　<A HREF=\"\\./20\\d{6}[a-z]\\d{9}f\\.html\" TARGET=\"_top\">(.+)</A></P>";
-//        private static string secPat = "<P><FONT SIZE=\"+1\"><B>(〔.+〕)</B></FONT></P>";
 
         public class HeadLine
         {
@@ -28,10 +27,10 @@ namespace kan4
             }
         }
 
-        public Kanpou(string t,string d,string i)
+        public Kanpou(string t,string i)
         {
             title = t;
-            date = d;
+            date = i.Substring(0,8);
             id = i;
             headlines = new List<HeadLine>();
         }

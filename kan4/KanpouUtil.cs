@@ -11,7 +11,7 @@ namespace kan4
         public static string MainUrl = "http://kanpou.npb.go.jp/";
 
         private static string ContentsUrl = "html/contents.html";
-        private static string RegPat = "<a href=\"\\.\\./(20\\d{6})/(20\\d{6}[a-z]\\d{5})/20\\d{6}[a-z]\\d{5}0000f\\.html\".+>(.+)</a>";
+        private static string RegPat = "<a href=\"\\.\\./20\\d{6}/(20\\d{6}[a-z]\\d{5})/20\\d{6}[a-z]\\d{5}0000f\\.html\".+>(.+)</a>";
 
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace kan4
         }
 
         /// <summary>
-        /// 直近30日分の官報一覧を取得
+        /// インターネット官報サイトから直近30日分の官報一覧を取得
         /// </summary>
         /// <returns></returns>
         public static List<Kanpou> getKanpouList()
@@ -41,7 +41,7 @@ namespace kan4
                     var m = System.Text.RegularExpressions.Regex.Match(l, RegPat);
                     if (m.Success)
                     {
-                        list.Add(new Kanpou(m.Groups[3].Value, m.Groups[1].Value, m.Groups[2].Value));
+                        list.Add(new Kanpou(m.Groups[2].Value, m.Groups[1].Value));
                     }
                 }
             }
@@ -125,7 +125,6 @@ namespace kan4
         public static void downloadKanpou(Kan4DB db, Kanpou k)
         {
             db.open();
-//            System.Windows.Forms.MessageBox.Show(string.Format("{0}", k.id));
             if (!db.isRegisted(k))
             {
                 var plist = k.getPdfUrls();
@@ -158,11 +157,20 @@ namespace kan4
                 System.Diagnostics.Process.Start(path);
             }
         }
-
+        /// <summary>
+        /// 官報pdfのファイルパス取得
+        /// </summary>
+        /// <param name="k"></param>
+        /// <returns></returns>
         public static string getKanpouPath(Kanpou k)
         {
             return getKanpouPath(k.id);
         }
+        /// <summary>
+        /// 官報pdfのファイルパス取得
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static string getKanpouPath(string id)
         {
             var m = System.Text.RegularExpressions.Regex.Match(id, "^(20\\d\\d)\\d{4}[a-z]\\d{5}$");

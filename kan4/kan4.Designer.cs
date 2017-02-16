@@ -62,7 +62,7 @@
             this.listBox1.Location = new System.Drawing.Point(12, 41);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(760, 148);
-            this.listBox1.TabIndex = 1;
+            this.listBox1.TabIndex = 5;
             this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
             // downloadStatusStrip
@@ -102,7 +102,7 @@
             this.dateTimePickerFrom.Location = new System.Drawing.Point(379, 14);
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
             this.dateTimePickerFrom.Size = new System.Drawing.Size(147, 19);
-            this.dateTimePickerFrom.TabIndex = 3;
+            this.dateTimePickerFrom.TabIndex = 2;
             // 
             // dateTimePickerTo
             // 
@@ -113,7 +113,7 @@
             this.dateTimePickerTo.Location = new System.Drawing.Point(532, 14);
             this.dateTimePickerTo.Name = "dateTimePickerTo";
             this.dateTimePickerTo.Size = new System.Drawing.Size(142, 19);
-            this.dateTimePickerTo.TabIndex = 4;
+            this.dateTimePickerTo.TabIndex = 3;
             // 
             // searchTextBox
             // 
@@ -122,7 +122,7 @@
             this.searchTextBox.Location = new System.Drawing.Point(93, 14);
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(280, 19);
-            this.searchTextBox.TabIndex = 5;
+            this.searchTextBox.TabIndex = 1;
             this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
             // 
             // searchButton
@@ -131,7 +131,7 @@
             this.searchButton.Location = new System.Drawing.Point(685, 11);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(87, 22);
-            this.searchButton.TabIndex = 6;
+            this.searchButton.TabIndex = 4;
             this.searchButton.Text = "search";
             this.searchButton.UseVisualStyleBackColor = true;
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);

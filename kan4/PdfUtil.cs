@@ -8,6 +8,12 @@ namespace kan4
 {
     public static class PdfUtil
     {
+        /// <summary>
+        /// PDFを連結する
+        /// </summary>
+        /// <param name="paths">連結するPDFリスト</param>
+        /// <param name="outpath">連結したPDF</param>
+        /// <returns></returns>
         public static bool joinPdf(List<string> paths,string outpath)
         {
             bool ret = true;

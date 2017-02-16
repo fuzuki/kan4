@@ -1,27 +1,31 @@
-�ȒP����Ǘ����B
+簡単官報管理官。
 =============
 
-web��pdf����(<https://kanpou.npb.go.jp/>)���_�E�����[�h���āA�茳�ŊǗ�����\�t�g�ł��B
+インターネット版「官報」(<https://kanpou.npb.go.jp/>)のPDFファイルをダウンロードして、手元で管理するソフトです。
 
-## �@�\  
-* pdf����_�E�����[�h
-* pdf�A��
-* ���o������
+## 機能  
+* pdf官報ダウンロード
+* pdf連結
+* 見出し検索
 
-## �g����
-�C���^�[�l�b�g�ɐڑ�������ԂŁuDownload�v�{�^���������ƁA����̃_�E�����[�h���J�n���܂��B  
-�uCancel�v�́A�_�E�����[�h���̊���̏������I�������A����ȏ�̃_�E�����[�h�𒆎~���܂��B  
-�e�L�X�g�{�b�N�X�Ɍ������������͂��āA�������Ԃ��w�肵�āusearch�v�{�^���������ƁA�_�E�����[�h�ς݊���̖ڎ����������܂��B�u�{���v�u���ʍ��O�v�Ƃ�����������ł̌������\�ł��B  
-�������ʂ̃��X�g���ڂ��_�u���N���b�N����ƁA�Ώۂ�pdf���J���܂��B  
+## 使い方
+インターネットに接続した状態で「Download」ボタンを押すと、官報のダウンロードを開始します。  
+「Cancel」は、ダウンロード中の官報の処理が終わったら、それ以上のダウンロードを中止します。  
+テキストボックスに検索文字列を入力して、検索期間を指定して「search」ボタンを押すと、ダウンロード済み官報の目次を検索します。「本紙」「特別号外」といった文字列での検索も可能です。  
+検索結果のリスト項目をダブルクリックすると、対象のpdfを開きます。  
 
-## �����  
-* Windows8�ȍ~(.NET Framework 4.5 �ȍ~)
+## 動作環境  
+* Windows8以降(.NET Framework 4.5 以降)
 
-## �J����  
+## 開発環境  
 * Visual Studio 2015
 
-## ���C�Z���X  
+## ライセンス  
 * GPLv3(<https://ja.osdn.net/projects/opensource/wiki/licenses%252FGNU_General_Public_License_version_3.0>)
 
-## �쐬
-�ӂÂ�(<https://github.com/fuzuki>)
+## 利用ライブラリ
+* iTextSharp 5.5.10(<https://www.nuget.org/packages/iTextSharp/>)
+* System.Data.SQLite (x86/x64) 1.0.104(<https://www.nuget.org/packages/System.Data.SQLite/>)
+
+## 作成
+ふづき(<https://github.com/fuzuki>)

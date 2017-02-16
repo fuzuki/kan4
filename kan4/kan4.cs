@@ -111,8 +111,8 @@ namespace kan4
             db.close();
             foreach (var item in l)
             {
-                var date = string.Format("{0}/{1}/{2}", item["pdf_id"].Substring(0, 4), item["pdf_id"].Substring(4, 2), item["pdf_id"].Substring(6, 2));
-                listBox1.Items.Add(new ListItem(string.Format("【{0} ({1})】　{2} ... {3}", item["pdf_title"], date, item["headline"], item["page"]), item["pdf_id"]));
+                var date = string.Format("{0}/{1}/{2}", item[Kan4DB.KanpouInfo.id].Substring(0, 4), item[Kan4DB.KanpouInfo.id].Substring(4, 2), item[Kan4DB.KanpouInfo.id].Substring(6, 2));
+                listBox1.Items.Add(new ListItem(string.Format("【{0} ({1})】　{2} ... {3}", item[Kan4DB.KanpouInfo.title], date, item[Kan4DB.KanpouInfo.headline], item[Kan4DB.KanpouInfo.page]), item[Kan4DB.KanpouInfo.id]));
             }
         }
 
