@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(kan4));
             this.downloadButton = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.downloadStatusStrip = new System.Windows.Forms.StatusStrip();
@@ -61,7 +62,7 @@
             this.listBox1.ItemHeight = 12;
             this.listBox1.Location = new System.Drawing.Point(12, 41);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(760, 148);
+            this.listBox1.Size = new System.Drawing.Size(760, 484);
             this.listBox1.TabIndex = 5;
             this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
@@ -70,7 +71,7 @@
             this.downloadStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDownloadProgressBar,
             this.toolStripDownloadStatusLabel});
-            this.downloadStatusStrip.Location = new System.Drawing.Point(0, 195);
+            this.downloadStatusStrip.Location = new System.Drawing.Point(0, 539);
             this.downloadStatusStrip.Name = "downloadStatusStrip";
             this.downloadStatusStrip.Size = new System.Drawing.Size(784, 22);
             this.downloadStatusStrip.TabIndex = 2;
@@ -140,7 +141,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 217);
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.searchTextBox);
             this.Controls.Add(this.dateTimePickerTo);
@@ -148,6 +149,7 @@
             this.Controls.Add(this.downloadStatusStrip);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.downloadButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 150);
             this.Name = "kan4";
             this.Text = "簡単官報管理官。";

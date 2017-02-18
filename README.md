@@ -27,5 +27,8 @@
 * iTextSharp 5.5.10(<https://www.nuget.org/packages/iTextSharp/>)
 * System.Data.SQLite (x86/x64) 1.0.104(<https://www.nuget.org/packages/System.Data.SQLite/>)
 
+## アイコン
+Polaris UI and Linecons(<https://designmodo.com/linecons-free/>)
+
 ## 作成
 ふづき(<https://github.com/fuzuki>)
