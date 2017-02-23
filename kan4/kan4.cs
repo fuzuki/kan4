@@ -32,20 +32,37 @@ namespace kan4
 
         private bool downloading;
         private bool cancel;
+        private string confPath;
 
+        /// <summary>
+        /// kan4コンストラクタ
+        /// </summary>
         public kan4()
         {
             InitializeComponent();
             db = new Kan4DB();
             downloading = false;
             cancel = false;
-            dateTimePickerFrom.Value = DateTime.Parse(string.Format("{0}/{1}/1",DateTime.Today.Year,DateTime.Today.Month)) ;
+//            dateTimePickerFrom.Value = DateTime.Parse(string.Format("{0}/{1}/1",DateTime.Today.Year,DateTime.Today.Month)) ;
+            dateTimePickerFrom.Value = DateTime.Parse("2017/1/1");
+
+            string mydir = System.AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\');
+            confPath = string.Format("{0}\\kan4.conf", mydir);
+            loadConf();
+
         }
 
+        /// <summary>
+        /// ダウンロード・キャンセルボタンのクリック
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void downloadButton_Click(object sender, EventArgs e)
         {
             if (!downloading)
             {
+                downloadStatusStrip.Enabled = false;
+                cancelToolStripMenuItem.Enabled = true;
                 downloadButton.Text = "Cancel";
                 downloading = true;
                 toolStripDownloadStatusLabel.Text = "downloading...";
@@ -54,6 +71,7 @@ namespace kan4
             {
                 toolStripDownloadStatusLabel.Text = "canceling...";
                 downloadButton.Enabled = false;
+                cancelToolStripMenuItem.Enabled = false;
                 cancel = true;
             }
         }
@@ -98,6 +116,8 @@ namespace kan4
             cancel = false;
             downloadButton.Text = "Download";
             downloadButton.Enabled = true;
+            downloadStatusStrip.Enabled = true;
+            cancelToolStripMenuItem.Enabled = false;
         }
 
         private void searchButton_Click(object sender, EventArgs e)
@@ -134,5 +154,88 @@ namespace kan4
                 searchButton_Click(sender, e);
             }
         }
+
+        private void downloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            downloadButton_Click(sender, e);
+        }
+
+        private void versionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string msg = string.Format("簡単官報管理官。\nver: {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            MessageBox.Show(msg,"バージョン情報");
+        }
+
+        private void fontToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var fd = new FontDialog();
+            fd.Font = listBox1.Font;
+
+            fd.FontMustExist = true;
+            fd.AllowVerticalFonts = false;
+            fd.ShowColor = false;
+            fd.ShowEffects = false;
+            fd.MinSize = 9;
+            if (fd.ShowDialog() != DialogResult.Cancel)
+            {
+                listBox1.Font = fd.Font;
+                saveConf();
+            }
+        }
+
+        private void cancelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            downloadButton_Click(sender, e);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void kan4_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!confirmExit())
+            {
+                e.Cancel = true;
+            }
+        }
+
+        /// <summary>
+        /// 修了確認
+        /// </summary>
+        /// <returns>true:yes / false:no</returns>
+        private bool confirmExit()
+        {
+            if (downloading)
+            {
+                var result = MessageBox.Show("官報をダウンロード中です。\n終了しますか？", "確認ダイアログ", MessageBoxButtons.YesNo);
+                if (result == DialogResult.No)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 設定ファイルの読み込み
+        /// </summary>
+        private void loadConf()
+        {
+            if (System.IO.File.Exists(confPath))
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// 設定ファイルの保存
+        /// </summary>
+        private void saveConf()
+        {
+
+        }
+
     }
 }

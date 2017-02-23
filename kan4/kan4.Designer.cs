@@ -39,12 +39,23 @@
             this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.searchButton = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.funcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.confToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadStatusStrip.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // downloadButton
             // 
-            this.downloadButton.Location = new System.Drawing.Point(12, 12);
+            this.downloadButton.Location = new System.Drawing.Point(12, 27);
             this.downloadButton.Name = "downloadButton";
             this.downloadButton.Size = new System.Drawing.Size(75, 23);
             this.downloadButton.TabIndex = 0;
@@ -60,9 +71,9 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.HorizontalScrollbar = true;
             this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(12, 41);
+            this.listBox1.Location = new System.Drawing.Point(0, 54);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(760, 484);
+            this.listBox1.Size = new System.Drawing.Size(760, 472);
             this.listBox1.TabIndex = 5;
             this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
@@ -100,7 +111,7 @@
             this.dateTimePickerFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePickerFrom.CustomFormat = "yyyy年M月d日から";
             this.dateTimePickerFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerFrom.Location = new System.Drawing.Point(379, 14);
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(379, 29);
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
             this.dateTimePickerFrom.Size = new System.Drawing.Size(147, 19);
             this.dateTimePickerFrom.TabIndex = 2;
@@ -111,7 +122,7 @@
             this.dateTimePickerTo.Checked = false;
             this.dateTimePickerTo.CustomFormat = "yyyy年M月d日まで";
             this.dateTimePickerTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerTo.Location = new System.Drawing.Point(532, 14);
+            this.dateTimePickerTo.Location = new System.Drawing.Point(532, 29);
             this.dateTimePickerTo.Name = "dateTimePickerTo";
             this.dateTimePickerTo.Size = new System.Drawing.Size(142, 19);
             this.dateTimePickerTo.TabIndex = 3;
@@ -120,7 +131,7 @@
             // 
             this.searchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchTextBox.Location = new System.Drawing.Point(93, 14);
+            this.searchTextBox.Location = new System.Drawing.Point(93, 29);
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(280, 19);
             this.searchTextBox.TabIndex = 1;
@@ -129,13 +140,95 @@
             // searchButton
             // 
             this.searchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchButton.Location = new System.Drawing.Point(685, 11);
+            this.searchButton.Location = new System.Drawing.Point(685, 26);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(87, 22);
             this.searchButton.TabIndex = 4;
             this.searchButton.Text = "search";
             this.searchButton.UseVisualStyleBackColor = true;
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.funcToolStripMenuItem,
+            this.confToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
+            this.menuStrip1.TabIndex = 6;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.fileToolStripMenuItem.Text = "ファイル(&F)";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "終了(X)";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // funcToolStripMenuItem
+            // 
+            this.funcToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.downloadToolStripMenuItem,
+            this.cancelToolStripMenuItem});
+            this.funcToolStripMenuItem.Name = "funcToolStripMenuItem";
+            this.funcToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.funcToolStripMenuItem.Text = "機能(&U)";
+            // 
+            // confToolStripMenuItem
+            // 
+            this.confToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fontToolStripMenuItem});
+            this.confToolStripMenuItem.Name = "confToolStripMenuItem";
+            this.confToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.confToolStripMenuItem.Text = "設定(&O)";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.versionToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.helpToolStripMenuItem.Text = "ヘルプ(&H)";
+            // 
+            // versionToolStripMenuItem
+            // 
+            this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.versionToolStripMenuItem.Text = "バージョン情報(&A)";
+            this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
+            // 
+            // fontToolStripMenuItem
+            // 
+            this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fontToolStripMenuItem.Text = "フォント設定(&S)";
+            this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
+            // 
+            // downloadToolStripMenuItem
+            // 
+            this.downloadToolStripMenuItem.Name = "downloadToolStripMenuItem";
+            this.downloadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.downloadToolStripMenuItem.Text = "ダウンロード(&D)";
+            this.downloadToolStripMenuItem.Click += new System.EventHandler(this.downloadToolStripMenuItem_Click);
+            // 
+            // cancelToolStripMenuItem
+            // 
+            this.cancelToolStripMenuItem.Enabled = false;
+            this.cancelToolStripMenuItem.Name = "cancelToolStripMenuItem";
+            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cancelToolStripMenuItem.Text = "キャンセル(&C)";
+            this.cancelToolStripMenuItem.Click += new System.EventHandler(this.cancelToolStripMenuItem_Click);
             // 
             // kan4
             // 
@@ -147,14 +240,19 @@
             this.Controls.Add(this.dateTimePickerTo);
             this.Controls.Add(this.dateTimePickerFrom);
             this.Controls.Add(this.downloadStatusStrip);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.downloadButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(800, 150);
             this.Name = "kan4";
             this.Text = "簡単官報管理官。";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.kan4_FormClosing);
             this.downloadStatusStrip.ResumeLayout(false);
             this.downloadStatusStrip.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -172,6 +270,16 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerTo;
         private System.Windows.Forms.TextBox searchTextBox;
         private System.Windows.Forms.Button searchButton;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem funcToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem confToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cancelToolStripMenuItem;
     }
 }
 

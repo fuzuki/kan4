@@ -75,9 +75,10 @@ namespace kan4
                 {
                     var ofile = String.Format("{0}\\{1}", dir, name);
                     pdflist.Add(ofile);
-                    if (!System.IO.File.Exists(ofile)) {
-                        wc.DownloadFile(u, ofile);
+                    if (System.IO.File.Exists(ofile)) {
+                        System.IO.File.Delete(ofile);
                     }
+                    wc.DownloadFile(u, ofile);
                     System.Threading.Thread.Sleep(50);//連続ダウンロードを控えるため
                 }
                 catch (System.Net.WebException)
