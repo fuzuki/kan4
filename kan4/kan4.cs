@@ -86,7 +86,7 @@ namespace kan4
             var klist = KanpouUtil.getKanpouList();
             if(klist.Count == 0)
             {
-                System.Windows.Forms.MessageBox.Show("Network Error !");
+                System.Windows.Forms.MessageBox.Show("ダウンロードに失敗しました。","ダウンロードエラー！",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
             int i = 0;
             klist.Reverse();//古いものから保存
@@ -163,7 +163,7 @@ namespace kan4
         private void versionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string msg = string.Format("簡単官報管理官。\nver: {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
-            MessageBox.Show(msg,"バージョン情報");
+            MessageBox.Show(msg,"バージョン情報",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
         private void fontToolStripMenuItem_Click(object sender, EventArgs e)
@@ -209,7 +209,7 @@ namespace kan4
         {
             if (downloading)
             {
-                var result = MessageBox.Show("官報をダウンロード中です。\n終了しますか？", "確認ダイアログ", MessageBoxButtons.YesNo);
+                var result = MessageBox.Show("官報をダウンロード中です。\n終了しますか？", "確認ダイアログ", MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
                 if (result == DialogResult.No)
                 {
                     return false;
@@ -225,6 +225,29 @@ namespace kan4
         {
             if (System.IO.File.Exists(confPath))
             {
+                string fname = string.Empty;
+                float fsize = 0 ;
+
+                var lines = System.IO.File.ReadAllLines(confPath);
+                foreach (var l in lines)
+                {
+                    if (l.StartsWith("font:"))
+                    {
+                        fname = l.Substring(5).Trim();
+                    }
+                    else if (l.StartsWith("size:"))
+                    {
+                        float.TryParse(l.Substring(5).Trim(),out fsize);
+                    }
+                }
+                if(fname.Length > 0 && fsize > 0)
+                {
+                    var f = new Font(fname, fsize);
+                    listBox1.Font = f;
+                }else
+                {
+                    System.IO.File.Delete(confPath);
+                }
 
             }
         }
@@ -234,7 +257,11 @@ namespace kan4
         /// </summary>
         private void saveConf()
         {
-
+            using (var sw = new System.IO.StreamWriter(confPath, false))
+            {
+                sw.WriteLine(string.Format("font:{0}", listBox1.Font.Name));
+                sw.WriteLine(string.Format("size:{0}", listBox1.Font.Size));
+            }
         }
 
     }
