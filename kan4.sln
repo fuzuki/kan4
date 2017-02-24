@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F1BF61BC-FAD1-439C-B2A7-D586CC8CFB90}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		kan4\bin\kan4\README.md.txt = kan4\bin\kan4\README.md.txt
 	EndProjectSection
 EndProject
 Global
