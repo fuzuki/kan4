@@ -152,7 +152,7 @@ namespace kan4
         public List<Dictionary<KanpouInfo, string>> searchHeadline(string txt,string from="20010101",string to="29991231")
         {
             var list = new List<Dictionary<KanpouInfo, string>>();
-            string sql = string.Format("select contents.headline,contents.page,pdf.id,pdf.title from contents inner join pdf on contents.pdf_id = pdf.id where (contents.headline like @1 or pdf.title like @1) and pdf.id > @2 and pdf.id < @3 order by pdf.id limit {0}",limit);
+            string sql = string.Format("select contents.headline,contents.page,pdf.id,pdf.title from contents inner join pdf on contents.pdf_id = pdf.id where (contents.headline like @1 or pdf.title like @1) and pdf.id > @2 and pdf.id < @3 order by pdf.id desc limit {0}",limit);
             var com = db.CreateCommand();
             com.CommandText = sql;
             com.Parameters.AddWithValue("@1", string.Format("%{0}%",txt));

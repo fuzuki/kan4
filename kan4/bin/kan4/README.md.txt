@@ -51,4 +51,4 @@ kan4-src.zip
 Polaris UI and Linecons(<https://designmodo.com/linecons-free/>)
 
 ## 作成
-ふづき(fuzuki@hiruandon.net)
+ふづき(fuzuki＠hiruandon．net)
