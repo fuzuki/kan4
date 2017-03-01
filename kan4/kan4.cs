@@ -61,7 +61,7 @@ namespace kan4
         {
             if (!downloading)
             {
-                downloadStatusStrip.Enabled = false;
+                downloadToolStripMenuItem.Enabled = false;
                 cancelToolStripMenuItem.Enabled = true;
                 downloadButton.Text = "Cancel";
                 downloading = true;
@@ -116,7 +116,7 @@ namespace kan4
             cancel = false;
             downloadButton.Text = "Download";
             downloadButton.Enabled = true;
-            downloadStatusStrip.Enabled = true;
+            downloadToolStripMenuItem.Enabled = true;
             cancelToolStripMenuItem.Enabled = false;
         }
 
