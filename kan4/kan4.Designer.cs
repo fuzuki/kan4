@@ -43,12 +43,13 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.funcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.confToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.confToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.readerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -172,7 +173,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.exitToolStripMenuItem.Text = "終了(X)";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -185,13 +186,36 @@
             this.funcToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.funcToolStripMenuItem.Text = "機能(&U)";
             // 
+            // downloadToolStripMenuItem
+            // 
+            this.downloadToolStripMenuItem.Name = "downloadToolStripMenuItem";
+            this.downloadToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.downloadToolStripMenuItem.Text = "ダウンロード(&D)";
+            this.downloadToolStripMenuItem.Click += new System.EventHandler(this.downloadToolStripMenuItem_Click);
+            // 
+            // cancelToolStripMenuItem
+            // 
+            this.cancelToolStripMenuItem.Enabled = false;
+            this.cancelToolStripMenuItem.Name = "cancelToolStripMenuItem";
+            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.cancelToolStripMenuItem.Text = "キャンセル(&C)";
+            this.cancelToolStripMenuItem.Click += new System.EventHandler(this.cancelToolStripMenuItem_Click);
+            // 
             // confToolStripMenuItem
             // 
             this.confToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fontToolStripMenuItem});
+            this.fontToolStripMenuItem,
+            this.readerToolStripMenuItem});
             this.confToolStripMenuItem.Name = "confToolStripMenuItem";
             this.confToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.confToolStripMenuItem.Text = "設定(&O)";
+            // 
+            // fontToolStripMenuItem
+            // 
+            this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.fontToolStripMenuItem.Text = "フォント設定(&S)";
+            this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -208,27 +232,13 @@
             this.versionToolStripMenuItem.Text = "バージョン情報(&A)";
             this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
             // 
-            // fontToolStripMenuItem
+            // readerToolStripMenuItem
             // 
-            this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.fontToolStripMenuItem.Text = "フォント設定(&S)";
-            this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
-            // 
-            // downloadToolStripMenuItem
-            // 
-            this.downloadToolStripMenuItem.Name = "downloadToolStripMenuItem";
-            this.downloadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.downloadToolStripMenuItem.Text = "ダウンロード(&D)";
-            this.downloadToolStripMenuItem.Click += new System.EventHandler(this.downloadToolStripMenuItem_Click);
-            // 
-            // cancelToolStripMenuItem
-            // 
-            this.cancelToolStripMenuItem.Enabled = false;
-            this.cancelToolStripMenuItem.Name = "cancelToolStripMenuItem";
-            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.cancelToolStripMenuItem.Text = "キャンセル(&C)";
-            this.cancelToolStripMenuItem.Click += new System.EventHandler(this.cancelToolStripMenuItem_Click);
+            this.readerToolStripMenuItem.CheckOnClick = true;
+            this.readerToolStripMenuItem.Name = "readerToolStripMenuItem";
+            this.readerToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.readerToolStripMenuItem.Text = "Acrobat Readerで開く";
+            this.readerToolStripMenuItem.Click += new System.EventHandler(this.readerToolStripMenuItem_Click);
             // 
             // kan4
             // 
@@ -280,6 +290,7 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cancelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem readerToolStripMenuItem;
     }
 }
 

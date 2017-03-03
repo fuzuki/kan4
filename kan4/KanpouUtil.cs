@@ -158,6 +158,29 @@ namespace kan4
                 System.Diagnostics.Process.Start(path);
             }
         }
+
+        /// <summary>
+        /// Acrobat Readerでファイルを開く
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="page"></param>
+        /// <param name="readerPath"></param>
+        public static void openKanpouPdf(string id, int page, string readerPath)
+        {
+            if (System.IO.File.Exists(readerPath))
+            {
+                var path = getKanpouPath(id);
+                if (path.Length > 0)
+                {
+                    System.Diagnostics.Process.Start(readerPath, string.Format("/a page={0} \"{1}\"",page, path));
+                }
+            }
+            else
+            {
+                openKanpouPdf(id);
+            }
+        }
+
         /// <summary>
         /// 官報pdfのファイルパス取得
         /// </summary>

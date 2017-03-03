@@ -16,10 +16,12 @@ namespace kan4
         {
             public readonly string txt;
             public readonly string id;
-            public ListItem(string t,string i)
+            public readonly int page;
+            public ListItem(string t,string i,int p)
             {
                 txt = t;
                 id = i;
+                page = p;
             }
 
             public override string ToString()
@@ -48,6 +50,10 @@ namespace kan4
 
             string mydir = System.AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\');
             confPath = string.Format("{0}\\kan4.conf", mydir);
+            if(readerPath().Length == 0)
+            {
+                readerToolStripMenuItem.Enabled = false;
+            }
             loadConf();
 
         }
@@ -132,7 +138,7 @@ namespace kan4
             foreach (var item in l)
             {
                 var date = string.Format("{0}/{1}/{2}", item[Kan4DB.KanpouInfo.id].Substring(0, 4), item[Kan4DB.KanpouInfo.id].Substring(4, 2), item[Kan4DB.KanpouInfo.id].Substring(6, 2));
-                listBox1.Items.Add(new ListItem(string.Format("【{0} ({1})】　{2} ... {3}", item[Kan4DB.KanpouInfo.title], date, item[Kan4DB.KanpouInfo.headline], item[Kan4DB.KanpouInfo.page]), item[Kan4DB.KanpouInfo.id]));
+                listBox1.Items.Add(new ListItem(string.Format("【{0} ({1})】　{2} ... {3}", item[Kan4DB.KanpouInfo.title], date, item[Kan4DB.KanpouInfo.headline], item[Kan4DB.KanpouInfo.page]), item[Kan4DB.KanpouInfo.id], int.Parse(item[Kan4DB.KanpouInfo.page])));
             }
         }
 
@@ -143,8 +149,14 @@ namespace kan4
                 return;
             }
             var item = (ListItem)listBox1.SelectedItem;
-            KanpouUtil.openKanpouPdf(item.id);
-            
+            if (readerToolStripMenuItem.Checked)
+            {
+                KanpouUtil.openKanpouPdf(item.id, item.page, readerPath());
+            }
+            else
+            {
+                KanpouUtil.openKanpouPdf(item.id);
+            }
         }
 
         private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -239,8 +251,13 @@ namespace kan4
                     {
                         float.TryParse(l.Substring(5).Trim(),out fsize);
                     }
+                    else if (l.StartsWith("reader:"))
+                    {
+                        readerToolStripMenuItem.Checked = true;
+                    }
+
                 }
-                if(fname.Length > 0 && fsize > 0)
+                if (fname.Length > 0 && fsize > 0)
                 {
                     var f = new Font(fname, fsize);
                     listBox1.Font = f;
@@ -261,8 +278,43 @@ namespace kan4
             {
                 sw.WriteLine(string.Format("font:{0}", listBox1.Font.Name));
                 sw.WriteLine(string.Format("size:{0}", listBox1.Font.Size));
+                if (readerToolStripMenuItem.Checked)
+                {
+                    sw.WriteLine("reader:");
+                }
             }
         }
 
+        /// <summary>
+        /// Acrobat Readerのパス
+        /// </summary>
+        /// <returns></returns>
+        private string readerPath()
+        {
+            var path = string.Empty;
+            var k = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\AcroRd32.exe", false);
+            if(k != null)
+            {
+                path = string.Format("{0}AcroRd32.exe", k.GetValue("Path").ToString());
+                if (!System.IO.File.Exists(path))
+                {
+                    path = string.Empty;
+                }
+            }
+            return path;
+        }
+
+        private void readerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (readerToolStripMenuItem.Checked && readerPath().Length == 0)
+            {
+                readerToolStripMenuItem.Checked = false;
+                System.Windows.Forms.MessageBox.Show("Acrobat Readerが見つかりません！", "Acrobat Reader not found !", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                saveConf();
+            }
+        }
     }
 }
