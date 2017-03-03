@@ -47,9 +47,9 @@
             this.cancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.confToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.readerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.readerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -72,7 +72,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.HorizontalScrollbar = true;
             this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(0, 54);
+            this.listBox1.Location = new System.Drawing.Point(12, 54);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(760, 472);
             this.listBox1.TabIndex = 5;
@@ -217,6 +217,14 @@
             this.fontToolStripMenuItem.Text = "フォント設定(&S)";
             this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
             // 
+            // readerToolStripMenuItem
+            // 
+            this.readerToolStripMenuItem.CheckOnClick = true;
+            this.readerToolStripMenuItem.Name = "readerToolStripMenuItem";
+            this.readerToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.readerToolStripMenuItem.Text = "Acrobat Readerで開く";
+            this.readerToolStripMenuItem.Click += new System.EventHandler(this.readerToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -231,14 +239,6 @@
             this.versionToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.versionToolStripMenuItem.Text = "バージョン情報(&A)";
             this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
-            // 
-            // readerToolStripMenuItem
-            // 
-            this.readerToolStripMenuItem.CheckOnClick = true;
-            this.readerToolStripMenuItem.Name = "readerToolStripMenuItem";
-            this.readerToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.readerToolStripMenuItem.Text = "Acrobat Readerで開く";
-            this.readerToolStripMenuItem.Click += new System.EventHandler(this.readerToolStripMenuItem_Click);
             // 
             // kan4
             // 
@@ -255,10 +255,11 @@
             this.Controls.Add(this.downloadButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(800, 150);
+            this.MinimumSize = new System.Drawing.Size(800, 300);
             this.Name = "kan4";
             this.Text = "簡単官報管理官。";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.kan4_FormClosing);
+            this.ResizeEnd += new System.EventHandler(this.kan4_ResizeEnd);
             this.downloadStatusStrip.ResumeLayout(false);
             this.downloadStatusStrip.PerformLayout();
             this.menuStrip1.ResumeLayout(false);

@@ -239,6 +239,8 @@ namespace kan4
             {
                 string fname = string.Empty;
                 float fsize = 0 ;
+                int w = MinimumSize.Width;
+                int h = MinimumSize.Height; 
 
                 var lines = System.IO.File.ReadAllLines(confPath);
                 foreach (var l in lines)
@@ -251,16 +253,26 @@ namespace kan4
                     {
                         float.TryParse(l.Substring(5).Trim(),out fsize);
                     }
+                    else if (l.StartsWith("width:"))
+                    {
+                        int.TryParse(l.Substring(6).Trim(), out w);
+                    }
+                    else if (l.StartsWith("height:"))
+                    {
+                        int.TryParse(l.Substring(7).Trim(), out h);
+                    }
                     else if (l.StartsWith("reader:"))
                     {
                         readerToolStripMenuItem.Checked = true;
                     }
 
                 }
-                if (fname.Length > 0 && fsize > 0)
+                if (fname.Length > 0 && fsize > 0 && w >= MinimumSize.Width && h >= MinimumSize.Height)
                 {
                     var f = new Font(fname, fsize);
                     listBox1.Font = f;
+                    Width = w;
+                    Height = h;
                 }else
                 {
                     System.IO.File.Delete(confPath);
@@ -278,6 +290,8 @@ namespace kan4
             {
                 sw.WriteLine(string.Format("font:{0}", listBox1.Font.Name));
                 sw.WriteLine(string.Format("size:{0}", listBox1.Font.Size));
+                sw.WriteLine(string.Format("width:{0}", Width));
+                sw.WriteLine(string.Format("height:{0}", Height));
                 if (readerToolStripMenuItem.Checked)
                 {
                     sw.WriteLine("reader:");
@@ -315,6 +329,11 @@ namespace kan4
             {
                 saveConf();
             }
+        }
+
+        private void kan4_ResizeEnd(object sender, EventArgs e)
+        {
+            saveConf();
         }
     }
 }
