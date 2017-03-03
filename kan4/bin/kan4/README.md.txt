@@ -24,7 +24,7 @@
 メニュー「設定」->「フォント設定」で、一覧表示のフォント・サイズを指定できます。  
 
 メニュー「設定」->「AdobeReaderで開く」にチェックを入れると、一覧をダブルクリックしてページを開く際に、該当のページが開くようになります。  
-当然この機能はAdobeReader<https://acrobat.adobe.com/jp/ja/acrobat/pdf-reader.html>がインストールされていないと使えません。  
+当然この機能はAdobeReader(<https://acrobat.adobe.com/jp/ja/acrobat/pdf-reader.html>)がインストールされていないと使えません。  
 
 ## アンインストール
 解凍したディレクトリを削除してください。  
