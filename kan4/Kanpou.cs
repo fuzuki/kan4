@@ -156,7 +156,7 @@ namespace kan4
                                     headline = m.Groups[2].Value;
                                 }
                             }
-                            else if (m.Groups[1].Value == "date" && headline.Length > 0)
+                            else if (m.Groups[1].Value == "date")
                             {
                                 int p = KanpouUtil.toInt(m.Groups[2].Value);
                                 string h = string.Format("{0}{1} {2}:{3}", h2, h3, h4, headline);
