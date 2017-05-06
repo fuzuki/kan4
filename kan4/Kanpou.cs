@@ -12,8 +12,11 @@ namespace kan4
         public readonly string date;
         public readonly string id;
         private List<HeadLine> headlines;
+        private string[] lines;
 
-        private static string pat = "<P>(.+)　………　<A HREF=\"\\./20\\d{6}[a-z]\\d{9}f\\.html\" TARGET=\"_top\">(.+)</A></P>";
+//        private static string titpat = "<(h\\d) class=\"title\">";
+        private static string titpat = "<(h\\d)";
+        private static string spanpat = "<span class=\"(.+)\">(.+)</span>";
 
         public class HeadLine
         {
@@ -44,15 +47,20 @@ namespace kan4
         {
             var list = new List<string>();
             var wc = new System.Net.WebClient();
+            wc.Encoding = System.Text.Encoding.UTF8;
             try
             {
-                var lines = wc.DownloadString(KanpouUtil.MainUrl + String.Format("{0}/{1}/button/{1}0000b.html", date, id)).Split('\n');
+                if(lines == null || lines.Length == 0)
+                {
+                    lines = wc.DownloadString(KanpouUtil.MainUrl + String.Format("{0}/{1}/{1}0000f.html", date, id)).Split('\n');
+                }
                 System.Text.RegularExpressions.Match m;
                 foreach (var item in lines)
                 {
-                    m = System.Text.RegularExpressions.Regex.Match(item, "<A HREF=.+/" + id + "(\\d{4})f.html.+><B>前ページ</B></FONT></A>");
+                    m = System.Text.RegularExpressions.Regex.Match(item, "<li class=\"back\"><a href=\"\\./" + id + "(\\d{4})f.html\">前ページ</a></li>");
                     if (m.Success)
                     {
+                        
                         int p = int.Parse(m.Groups[1].Value);
                         for (int i = 0; i < p; i++)
                         {
@@ -78,36 +86,83 @@ namespace kan4
         /// <returns></returns>
         public List<HeadLine> getHeadLines()
         {
-            if(headlines.Count > 0)
+            if (headlines.Count > 0)
             {
                 return headlines;
             }
             var wc = new System.Net.WebClient();
+            wc.Encoding = System.Text.Encoding.UTF8;
             try
             {
-                var lines = wc.DownloadString(KanpouUtil.MainUrl + String.Format("{0}/{1}/{1}0000.html", date, id)).Split('\n');
-                var sec = string.Empty;
+                if (lines == null || lines.Length == 0)
+                {
+                    lines = wc.DownloadString(KanpouUtil.MainUrl + String.Format("{0}/{1}/{1}0000f.html", date, id)).Split('\n');
+                }
+
+                string h2 = string.Empty;
+                string h3 = string.Empty;
+                string h4 = string.Empty;
+                string headline = string.Empty;
+                bool h2f = false;
+                bool h3f = false;
+                bool h4f = false;
+
                 foreach (var l in lines)
                 {
-                    var m = System.Text.RegularExpressions.Regex.Match(l,pat);
+                    var m = System.Text.RegularExpressions.Regex.Match(l, titpat);
                     if (m.Success)
                     {
-                        //目次にマッチ
-                        int p = KanpouUtil.toInt(m.Groups[2].Value);
-                        string h = System.Text.RegularExpressions.Regex.Replace(m.Groups[1].Value,"<.+?>", string.Empty);
-                        if (h.StartsWith("〔"))
+                        if(m.Groups[1].Value == "h2")
                         {
-                            sec = string.Empty;
+                            h2 = string.Empty;
+                            h2f = true;
                         }
-                        headlines.Add(new HeadLine(sec + h, p));
+                        else if (m.Groups[1].Value == "h3")
+                        {
+                            h3 = string.Empty;
+                            h3f = true;
+                        }
+                        else if (m.Groups[1].Value == "h4")
+                        {
+                            h4 = string.Empty;
+                            h4f = true;
+                        }
                     }
                     else
                     {
-                        m = System.Text.RegularExpressions.Regex.Match(l, ">(〔.+〕)</B></FONT></P>");
+                        m = System.Text.RegularExpressions.Regex.Match(l, spanpat);
                         if (m.Success)
                         {
                             //小題にマッチ
-                            sec = m.Groups[1].Value;
+                            if(m.Groups[1].Value == "text")
+                            {
+                                if (h2f)
+                                {
+                                    h2 = string.Format("〔{0}〕", m.Groups[2].Value);
+                                    h2f = false;
+                                }
+                                else if (h3f)
+                                {
+                                    h3 = m.Groups[2].Value;
+                                    h3f = false;
+                                }
+                                else if (h4f)
+                                {
+                                    h4 = m.Groups[2].Value;
+                                    h4f = false;
+                                }
+                                else
+                                {
+                                    headline = m.Groups[2].Value;
+                                }
+                            }
+                            else if (m.Groups[1].Value == "date" && headline.Length > 0)
+                            {
+                                int p = KanpouUtil.toInt(m.Groups[2].Value);
+                                string h = string.Format("{0}{1} {2}:{3}", h2, h3, h4, headline);
+                                headlines.Add(new HeadLine(h, p));
+                                headline = string.Empty;
+                            }
                         }
                     }
                 }

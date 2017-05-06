@@ -89,6 +89,7 @@
     <Compile Include="main.cs" />
     <Compile Include="PdfUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test.cs" />
     <EmbeddedResource Include="kan4.resx">
       <DependentUpon>kan4.cs</DependentUpon>
     </EmbeddedResource>

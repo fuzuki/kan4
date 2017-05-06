@@ -10,8 +10,8 @@ namespace kan4
     {
         public static string MainUrl = "http://kanpou.npb.go.jp/";
 
-        private static string ContentsUrl = "html/contents.html";
-        private static string RegPat = "<a href=\"\\.\\./20\\d{6}/(20\\d{6}[a-z]\\d{5})/20\\d{6}[a-z]\\d{5}0000f\\.html\".+>(.+)</a>";
+        private static string ContentsUrl = "index.html";
+        private static string RegPat = "<a href=\"\\./20\\d{6}/(20\\d{6}[a-z]\\d{5})/20\\d{6}[a-z]\\d{5}0000f\\.html\">(.+)<br>(.+)</a>";
 
 
         /// <summary>
@@ -33,6 +33,7 @@ namespace kan4
         {
             var list = new List<Kanpou>();
             var wc = new System.Net.WebClient();
+            wc.Encoding = System.Text.Encoding.UTF8;
             try
             {
                 var lines = wc.DownloadString(MainUrl + ContentsUrl).Split('\n');
@@ -41,7 +42,7 @@ namespace kan4
                     var m = System.Text.RegularExpressions.Regex.Match(l, RegPat);
                     if (m.Success)
                     {
-                        list.Add(new Kanpou(m.Groups[2].Value, m.Groups[1].Value));
+                        list.Add(new Kanpou(string.Format("{0} {1}",m.Groups[2].Value, m.Groups[3].Value), m.Groups[1].Value));
                     }
                 }
             }
