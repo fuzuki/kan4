@@ -45,8 +45,8 @@ namespace kan4
             db = new Kan4DB();
             downloading = false;
             cancel = false;
-//            dateTimePickerFrom.Value = DateTime.Parse(string.Format("{0}/{1}/1",DateTime.Today.Year,DateTime.Today.Month)) ;
-            dateTimePickerFrom.Value = DateTime.Parse("2017/1/1");
+            dateTimePickerFrom.Value = DateTime.Parse(string.Format("{0}/{1}/1",DateTime.Today.Year,DateTime.Today.Month)) ;
+//            dateTimePickerFrom.Value = DateTime.Parse("2017/1/1");
 
             string mydir = System.AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\');
             confPath = string.Format("{0}\\kan4.conf", mydir);
