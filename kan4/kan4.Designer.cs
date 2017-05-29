@@ -257,7 +257,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(800, 300);
             this.Name = "kan4";
-            this.Text = "簡単官報管理官。";
+            this.Text = "簡単官報ダウンロード管理官。";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.kan4_FormClosing);
             this.ResizeEnd += new System.EventHandler(this.kan4_ResizeEnd);
             this.downloadStatusStrip.ResumeLayout(false);

@@ -10,8 +10,8 @@ namespace kan4
     {
         public static string MainUrl = "http://kanpou.npb.go.jp/";
 
-        private static string ContentsUrl = "index.html";
-        private static string RegPat = "<a href=\"\\./20\\d{6}/(20\\d{6}[a-z]\\d{5})/20\\d{6}[a-z]\\d{5}0000f\\.html\">(.+)<br>(.+)</a>";
+        private static readonly string ContentsUrl = "index.html";
+        private static readonly string RegPat = "<a href=\"\\./20\\d{6}/(20\\d{6}[a-z]\\d{5})/20\\d{6}[a-z]\\d{5}0000f\\.html\">(.+)<br>(.+)</a>";
 
 
         /// <summary>
