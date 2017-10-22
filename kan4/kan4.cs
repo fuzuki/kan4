@@ -174,7 +174,7 @@ namespace kan4
 
         private void versionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string msg = string.Format("簡単官報管理官。\nver: {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            string msg = string.Format("簡単官報ダウンロード管理官。\nver: {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
             MessageBox.Show(msg,"バージョン情報",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
