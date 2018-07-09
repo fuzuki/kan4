@@ -8,7 +8,7 @@ namespace kan4
 {
     public static class KanpouUtil
     {
-        public static string MainUrl = "http://kanpou.npb.go.jp/";
+        public static string MainUrl = "https://kanpou.npb.go.jp/";
 
         private static readonly string ContentsUrl = "index.html";
         private static readonly string RegPat = "<a href=\"\\./20\\d{6}/(20\\d{6}[a-z]\\d{5})/20\\d{6}[a-z]\\d{5}0000f\\.html\">(.+)<br>(.+)</a>";
@@ -32,6 +32,7 @@ namespace kan4
         public static List<Kanpou> getKanpouList()
         {
             var list = new List<Kanpou>();
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
             var wc = new System.Net.WebClient();
             wc.Encoding = System.Text.Encoding.UTF8;
             try
