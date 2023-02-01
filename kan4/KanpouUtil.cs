@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace kan4
 {
@@ -141,13 +138,41 @@ namespace kan4
                     {
                         filelist.Add(string.Format("{0}\\{1}", tmpdir, System.IO.Path.GetFileName(u)));
                     }
-                    PdfUtil.joinPdf(filelist, getKanpouPath(k));
-                    db.regist(k);
-                    deleteFiles(filelist);
+
+                    try
+                    {
+                        PdfUtil.joinPdf(filelist, getKanpouPath(k));
+                        db.regist(k);
+                        deleteFiles(filelist);
+                    }
+                    catch (Exception)
+                    {
+                        // 連結に失敗した場合、日付ディレクトリを作って、ファイルをすべてそこに移動する
+                        movePdf(filelist, getKanpouIdDirPath(k));
+                        db.regist(k);
+                        deleteFiles(filelist);
+                    }
                 }
             }
             db.close();
         }
+
+        /// <summary>
+        /// pdfファイルを移動する
+        /// </summary>
+        /// <param name="paths"></param>
+        /// <param name="outdir"></param>
+        public static void movePdf(List<string> paths, string outdir)
+        {
+            System.IO.Directory.CreateDirectory(outdir);
+            //System.IO.File.Move();
+            foreach (var item in paths)
+            {
+                var destfile = string.Format("{0}\\{1}", outdir, System.IO.Path.GetFileName(item));
+                System.IO.File.Copy(item, destfile, true);
+            }
+        }
+
         /// <summary>
         /// pdfファイルを開く
         /// </summary>
@@ -155,9 +180,25 @@ namespace kan4
         public static void openKanpouPdf(string id)
         {
             var path = getKanpouPath(id);
-            if(path.Length > 0)
+            var fi = new System.IO.FileInfo(path);
+            if (path.Length > 0)
             {
-                System.Diagnostics.Process.Start(path);
+                if (System.IO.File.Exists(path) && fi.Length > 0)
+                {
+                    System.Diagnostics.Process.Start(path);
+                }
+                else
+                {
+                    if (System.IO.File.Exists(path) && fi.Length == 0)
+                    {
+                        System.IO.File.Delete(path);
+                    }
+                    var dirpath = getKanpouIdDirPath(id);
+                    if (System.IO.Directory.Exists(dirpath))
+                    {
+                        System.Diagnostics.Process.Start(dirpath);
+                    }
+                }
             }
         }
 
@@ -172,9 +213,14 @@ namespace kan4
             if (System.IO.File.Exists(readerPath))
             {
                 var path = getKanpouPath(id);
-                if (path.Length > 0)
+                var fi = new System.IO.FileInfo(path);
+                if (path.Length > 0 && System.IO.File.Exists(path) && fi.Length > 0)
                 {
-                    System.Diagnostics.Process.Start(readerPath, string.Format("/a page={0} \"{1}\"",page, path));
+                    System.Diagnostics.Process.Start(readerPath, string.Format("/a page={0} \"{1}\"", page, path));
+                }
+                else
+                {
+                    openKanpouPdf(id);
                 }
             }
             else
@@ -191,6 +237,15 @@ namespace kan4
         public static string getKanpouPath(Kanpou k)
         {
             return getKanpouPath(k.id);
+        }
+        /// <summary>
+        /// 官報pdfのIDディレクトリパス取得
+        /// </summary>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public static string getKanpouIdDirPath(Kanpou k)
+        {
+            return getKanpouIdDirPath(k.id);
         }
         /// <summary>
         /// 官報pdfのファイルパス取得
@@ -210,6 +265,25 @@ namespace kan4
                 System.IO.Directory.CreateDirectory(kdir);
             }
             return string.Format("{0}\\{1}.pdf", kdir, id);
+        }
+        /// <summary>
+        /// 官報pdfのIDディレクトリパス取得
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static string getKanpouIdDirPath(string id)
+        {
+            var m = System.Text.RegularExpressions.Regex.Match(id, "^(20\\d\\d)\\d{4}[a-z]\\d{5}$");
+            if (!m.Success)
+            {
+                return string.Empty;
+            }
+            string kdir = string.Format("{0}\\{1}", getPdfDir(), m.Groups[1].Value);
+            if (!System.IO.Directory.Exists(kdir))
+            {
+                System.IO.Directory.CreateDirectory(kdir);
+            }
+            return string.Format("{0}\\{1}", kdir, id);
         }
 
         private static string getPdfDir()

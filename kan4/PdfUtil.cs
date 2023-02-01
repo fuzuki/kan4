@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace kan4
 {
@@ -21,20 +18,37 @@ namespace kan4
             var copy = new iTextSharp.text.pdf.PdfCopyFields(outfile);
             iTextSharp.text.pdf.PdfReader.unethicalreading = true;//owner passwordを無視
             var readers = new List<iTextSharp.text.pdf.PdfReader>();
-            foreach (var item in paths)
+            try
             {
-                if (!System.IO.File.Exists(item))
+                foreach (var item in paths)
                 {
-                    ret = false;
-                    break;
+                    if (!System.IO.File.Exists(item))
+                    {
+                        ret = false;
+                        break;
+                    }
+                    var tmp = new iTextSharp.text.pdf.PdfReader(item);
+                    if (tmp.GetPageRotation(1) != 0)
+                    {
+                        tmp.GetPageN(1).Put(iTextSharp.text.pdf.PdfName.ROTATE, new iTextSharp.text.pdf.PdfNumber(0));
+                    }
+                    readers.Add(tmp);
+                    copy.AddDocument(tmp);
                 }
-                var tmp = new iTextSharp.text.pdf.PdfReader(item);
-                if (tmp.GetPageRotation(1) != 0)
+
+            }catch(Exception ex)
+            {
+                copy.Close();
+                outfile.Close();
+                foreach (var item in readers)
                 {
-                    tmp.GetPageN(1).Put(iTextSharp.text.pdf.PdfName.ROTATE, new iTextSharp.text.pdf.PdfNumber(0));
+                    item.Close();
                 }
-                readers.Add(tmp);
-                copy.AddDocument(tmp);
+                if (System.IO.File.Exists(outpath))
+                {
+                    System.IO.File.Delete(outpath);
+                }
+                throw ex;
             }
             copy.Close();
             outfile.Close();
