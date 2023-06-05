@@ -89,13 +89,13 @@ namespace kan4
         {
             var com = db.CreateCommand();
 
-            com.CommandText = "insert into pdf(id,title) values(@1,@2);";
+            com.CommandText = "insert or replace into pdf(id,title) values(@1,@2);";
             com.Parameters.AddWithValue("@1", k.id);
             com.Parameters.AddWithValue("@2", k.title);
             com.ExecuteNonQuery();
 
             var headlines = k.getHeadLines();
-            com.CommandText = "insert into contents(headline,page,pdf_id) values(@1,@2,@3)";
+            com.CommandText = "insert or replace into contents(headline,page,pdf_id) values(@1,@2,@3)";
             foreach (var h in headlines)
             {
                 com.Parameters.Clear();
