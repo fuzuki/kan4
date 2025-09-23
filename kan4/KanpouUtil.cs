@@ -5,7 +5,7 @@ namespace kan4
 {
     public static class KanpouUtil
     {
-        public static string MainUrl = "https://kanpou.npb.go.jp/";
+        public static string MainUrl = "https://www.kanpo.go.jp/";
 
         private static readonly string ContentsUrl = "index.html";
         private static readonly string RegPat = "<a href=\"\\./20\\d{6}/(20\\d{6}[a-z]\\d{5})/20\\d{6}[a-z]\\d{5}0000f\\.html\" class=.*>(.+)<br>(.+)</a>";
